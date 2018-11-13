@@ -25,6 +25,8 @@
 
 ;;; Code:
 
+(require 'subr-x)
+
 (defvar foldoc-file (expand-file-name "var/folddoc/Dictionary" user-emacs-directory)
   "File downloaded from URL `http://foldoc.org/Dictionary'.")
 
@@ -62,6 +64,9 @@
           (goto-char (point-max)))
         (buffer-substring op (point))))))
 
+(defun foldoc--format-result (result)
+  (replace-regexp-in-string "^\t" "" (string-trim result)))
+
 (defun foldoc (word)
   "Display explanation of WORD."
   (interactive (list (foldoc--read-word)))
@@ -69,7 +74,7 @@
     (if result
         (with-current-buffer (get-buffer-create (format "*foldoc: %s*" word))
           (erase-buffer)
-          (insert result)
+          (insert (foldoc--format-result result))
           (goto-char (point-min))
           (display-buffer (current-buffer)))
       (user-error "No result for %s" word))))
