@@ -3,7 +3,9 @@
 ;; Copyright (C) 2018-2019  Xu Chunyang
 
 ;; Author: Xu Chunyang <mail@xuchunyang.me>
-;; Package-Requires: ((emacs "24.4))
+;; Homepage: https://github.com/xuchunyang/foldoc.el
+;; Package-Requires: ((emacs "24.4"))
+;; Version: 0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
