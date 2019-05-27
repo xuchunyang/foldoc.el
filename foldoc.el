@@ -38,16 +38,17 @@
 (defun foldoc--read-word ()
   (unless (file-exists-p foldoc-file)
     (foldoc--download))
-  (completing-read
-   "Word: "
-   (with-temp-buffer
-     (insert-file-contents foldoc-file)
-     (goto-char (point-min))
-     (let (words)
-       (while (re-search-forward "^[^\t\n].*$" nil t)
-         (push (match-string 0) words))
-       (nreverse words)))
-   nil t))
+  (let ((completion-ignore-case t))
+    (completing-read
+     "Word: "
+     (with-temp-buffer
+       (insert-file-contents foldoc-file)
+       (goto-char (point-min))
+       (let (words)
+         (while (re-search-forward "^[^\t\n].*$" nil t)
+           (push (match-string 0) words))
+         (nreverse words)))
+     nil t)))
 
 (defun foldoc--search-word (word)
   (unless (file-exists-p foldoc-file)
