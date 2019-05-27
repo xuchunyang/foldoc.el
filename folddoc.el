@@ -1,8 +1,9 @@
-;;; folddoc.el --- Offline FOLDOC (The Free On-line Dictionary of Computing)  -*- lexical-binding: t; -*-
+;;; folddoc.el --- FOLDOC - Computing Dictionary -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2018  Xu Chunyang
+;; Copyright (C) 2018-2019  Xu Chunyang
 
 ;; Author: Xu Chunyang <mail@xuchunyang.me>
+;; Package-Requires: ((emacs "24.4))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -19,19 +20,17 @@
 
 ;;; Commentary:
 
-;; Download dictionary from https://foldoc.org/ and browse it in Emacs.
-;;
-;; M-x foldoc
+;; Emacs interface for [FOLDOC - Computing Dictionary](http://foldoc.org/).
 
 ;;; Code:
 
-(require 'subr-x)
+(require 'subr-x)                       ; `string-trim'
 
 (defvar foldoc-file (expand-file-name "var/folddoc/Dictionary" user-emacs-directory)
   "File downloaded from URL `http://foldoc.org/Dictionary'.")
 
 (defun foldoc--download ()
-  "Download `foldoc-file'."
+  "Download dictionary to `foldoc-file'."
   (let ((dir (file-name-directory foldoc-file)))
     (unless (file-exists-p dir)
       (make-directory dir t)))
@@ -67,6 +66,7 @@
 (defun foldoc--format-result (result)
   (replace-regexp-in-string "^\t" "" (string-trim result)))
 
+;;;###autoload
 (defun foldoc (word)
   "Display explanation of WORD."
   (interactive (list (foldoc--read-word)))
