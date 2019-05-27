@@ -1,4 +1,4 @@
-;;; folddoc.el --- FOLDOC - Computing Dictionary -*- lexical-binding: t; -*-
+;;; foldoc.el --- FOLDOC - Computing Dictionary -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018-2019  Xu Chunyang
 
@@ -26,14 +26,13 @@
 
 (require 'subr-x)                       ; `string-trim'
 
-(defvar foldoc-file (expand-file-name "var/folddoc/Dictionary" user-emacs-directory)
+(defvar foldoc-file
+  (locate-user-emacs-file (convert-standard-filename "foldoc/Dictionary"))
   "File downloaded from URL `http://foldoc.org/Dictionary'.")
 
 (defun foldoc--download ()
   "Download dictionary to `foldoc-file'."
-  (let ((dir (file-name-directory foldoc-file)))
-    (unless (file-exists-p dir)
-      (make-directory dir t)))
+  (make-directory (file-name-directory foldoc-file) t)
   (url-copy-file "http://foldoc.org/Dictionary" foldoc-file 'ok-if-already-exists))
 
 (defun foldoc--read-word ()
@@ -79,5 +78,5 @@
           (display-buffer (current-buffer)))
       (user-error "No result for %s" word))))
 
-(provide 'folddoc)
-;;; folddoc.el ends here
+(provide 'foldoc)
+;;; foldoc.el ends here
