@@ -1,3 +1,7 @@
+# foldoc.el
+
+[![Build Status](https://travis-ci.org/xuchunyang/foldoc.el.svg?branch=master)](https://travis-ci.org/xuchunyang/foldoc.el)
+
 Offline access to [FOLDOC - Computing Dictionary](http://foldoc.org/) within Emacs.
 
 ## Usage
